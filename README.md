@@ -1,0 +1,2 @@
+# AquiTemUmRevendedor
+App android 

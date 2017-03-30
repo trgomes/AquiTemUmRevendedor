@@ -1,0 +1,92 @@
+package br.com.fatec.aquitemumrevendedor.model;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ * Created by User on 30/03/2017.
+ */
+
+public class Connection {
+
+    private final String USER_AGENT = "Mozilla/5.0";
+
+
+    // HTTP GET request
+    public List<Revendedor> sendGet() throws Exception {
+//    public String sendGet() throws Exception {
+
+        //https://api.myjson.com/bins/3kpyw
+        //http://api.flickr.com/services/feeds/photos_public.gne?tags=beatles&format=json&jsoncallback=?
+        String url = "https://api.myjson.com/bins/cm2pf";
+
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        // optional default is GET
+        con.setRequestMethod("GET");
+
+        //add request header
+        con.setRequestProperty("User-Agent", USER_AGENT);
+
+        int responseCode = con.getResponseCode();
+        System.out.println("\nSending 'GET' request to URL : " + url);
+        System.out.println("Response Code : " + responseCode);
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        //System.out.println(response.toString());
+
+//        List<Revendedor> found = findAllItems(new JSONArray(response.toString()));
+
+//        JSONObject obj = new JSONObject(response.toString());
+
+        JSONObject ob = new JSONObject(response.toString());
+
+        List<Revendedor> found = findAllItems(ob.getJSONArray("Revendedores"));
+
+        return found;
+    }
+
+    public List<Revendedor> findAllItems(JSONArray response) throws JSONException {
+
+        List<Revendedor> found = new LinkedList<Revendedor>();
+
+
+        for (int i = 0; i < response.length(); i++) {
+            JSONObject obj = response.getJSONObject(i);
+            ArrayList<String> revenda = new ArrayList<>();
+
+            if(obj.getJSONArray("revenda").length() > 0){
+
+
+                for(int x = 0; x < obj.getJSONArray("revenda").length(); x++){
+                    revenda.add(obj.getJSONArray("revenda").getString(x));
+                }
+
+                //System.out.println("Array revanda" + revenda);
+            }
+
+            found.add(new Revendedor(obj.getString("nome"), obj.getDouble("latitude"), obj.getDouble("longitude"), revenda));
+
+        }
+
+        return found;
+    }
+}

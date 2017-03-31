@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import br.com.fatec.aquitemumrevendedor.model.Connection;
-import br.com.fatec.aquitemumrevendedor.model.Consulta;
+import br.com.fatec.aquitemumrevendedor.model.BuscaDados;
 import br.com.fatec.aquitemumrevendedor.model.Revendedor;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,18 +23,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Consulta c = new Consulta();
+        BuscaDados bd = new BuscaDados();
 
         List<Revendedor> resp = null;
 
+
+
         try {
-            resp = c.execute().get();
-            Log.i(TAG, String.valueOf(resp));
+            //            resp = bd.execute().get();
+            bd.execute().get();
+
+            //              bd.execute();
+//            Log.i(TAG, String.valueOf(resp));
+            Log.i(TAG, String.valueOf(bd.getDados()));
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
+
+
 
     }
 }

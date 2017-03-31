@@ -8,19 +8,29 @@ import java.util.ArrayList;
 
 public class Revendedor {
 
-    String nome;
-    double latitude;
-    double longitude;
-    ArrayList<String> revendas;
+    private long id;
+    private String nome;
+    private double latitude;
+    private double longitude;
+    private ArrayList<String> revendas;
 
 
 
-    public Revendedor(String nome, double latitude, double longitude, ArrayList<String> jsonArray) {
+    public Revendedor(long id, String nome, double latitude, double longitude, ArrayList<String> revendas) {
         super();
+        this.id = id;
         this.nome = nome;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.revendas = jsonArray;
+        this.revendas = revendas;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -56,7 +66,11 @@ public class Revendedor {
     }
 
     public String toString(){
-        String str = "Revendedor:"+nome +" Latitude:"+ latitude +" Longitude:"+longitude+" Revendas:"+revendas ;
+        String str = "ID: "+ this.id +
+                " Revendedor:"+ this.nome +
+                " Latitude:"+ this.latitude +
+                " Longitude:"+ this.longitude +
+                " Revendas:"+ this.revendas ;
 
         return str;
     }

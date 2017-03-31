@@ -23,12 +23,9 @@ public class Connection {
 
     // HTTP GET request
     public List<Revendedor> sendGet() throws Exception {
-//    public String sendGet() throws Exception {
 
-        //https://api.myjson.com/bins/3kpyw
-        //http://api.flickr.com/services/feeds/photos_public.gne?tags=beatles&format=json&jsoncallback=?
-        String url = "https://api.myjson.com/bins/cm2pf";
-
+//        String url = "https://api.myjson.com/bins/cm2pf";
+        String url = "https://api.myjson.com/bins/1cps4v";
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -38,9 +35,9 @@ public class Connection {
         //add request header
         con.setRequestProperty("User-Agent", USER_AGENT);
 
-        int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
+//        int responseCode = con.getResponseCode();
+//        System.out.println("\nSending 'GET' request to URL : " + url);
+//        System.out.println("Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
@@ -50,12 +47,6 @@ public class Connection {
             response.append(inputLine);
         }
         in.close();
-
-        //System.out.println(response.toString());
-
-//        List<Revendedor> found = findAllItems(new JSONArray(response.toString()));
-
-//        JSONObject obj = new JSONObject(response.toString());
 
         JSONObject ob = new JSONObject(response.toString());
 
@@ -73,17 +64,15 @@ public class Connection {
             JSONObject obj = response.getJSONObject(i);
             ArrayList<String> revenda = new ArrayList<>();
 
+            //Monta o array de revandas por vendedors
             if(obj.getJSONArray("revenda").length() > 0){
-
 
                 for(int x = 0; x < obj.getJSONArray("revenda").length(); x++){
                     revenda.add(obj.getJSONArray("revenda").getString(x));
                 }
-
-                //System.out.println("Array revanda" + revenda);
             }
 
-            found.add(new Revendedor(obj.getString("nome"), obj.getDouble("latitude"), obj.getDouble("longitude"), revenda));
+            found.add(new Revendedor(obj.getLong("id"), obj.getString("nome"), obj.getDouble("latitude"), obj.getDouble("longitude"), revenda));
 
         }
 

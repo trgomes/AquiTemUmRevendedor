@@ -13,4 +13,9 @@
     tools:context="br.com.fatec.aquitemumrevendedor.ActPrincipal"
     tools:showIn="@layout/app_bar_act_principal">
 
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
 </RelativeLayout>

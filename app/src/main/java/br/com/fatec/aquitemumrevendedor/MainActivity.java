@@ -23,27 +23,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BuscaDados bd = new BuscaDados();
-
-        List<Revendedor> resp = null;
-
-
-
-        try {
-            //            resp = bd.execute().get();
-            bd.execute().get();
-
-            //              bd.execute();
-//            Log.i(TAG, String.valueOf(resp));
-            Log.i(TAG, String.valueOf(bd.getDados()));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-
-
-
+//        BuscaDados bd = new BuscaDados();
+//
+//        List<Revendedor> resp = null;
+//
+//
+//        try {
+//            //            resp = bd.execute().get();
+//            bd.execute().get();
+//
+//            //              bd.execute();
+////            Log.i(TAG, String.valueOf(resp));
+//            Log.i(TAG, String.valueOf(bd.getDados()));
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
     }
 }

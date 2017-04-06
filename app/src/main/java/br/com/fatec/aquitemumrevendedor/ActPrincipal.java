@@ -31,6 +31,9 @@ public class ActPrincipal extends AppCompatActivity
     private Connection con = new Connection();
     private static final String TAG = "Thiago";
 
+    //Variavel Global
+    public static final BuscaDados bd = new BuscaDados();
+
     private List<Revendedor> revendedor;
 
     @Override
@@ -50,8 +53,8 @@ public class ActPrincipal extends AppCompatActivity
 //        });
 
         //Carrega os dados - Inicio
-        BuscaDados bd = new BuscaDados();
-        List<Revendedor> resp = null;
+//        BuscaDados bd = new BuscaDados();
+//        List<Revendedor> resp = null;
 
         try {
             bd.execute().get();
@@ -108,6 +111,11 @@ public class ActPrincipal extends AppCompatActivity
             return true;
         }
 
+        switch (id){
+            case R.id.action_settings:
+                return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -119,16 +127,6 @@ public class ActPrincipal extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

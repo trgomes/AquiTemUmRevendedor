@@ -1,27 +1,41 @@
 package br.com.fatec.aquitemumrevendedor;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
-import java.util.List;
-import java.util.concurrent.ExecutionException;
+public class ActSplash extends AppCompatActivity {
 
-import br.com.fatec.aquitemumrevendedor.model.Connection;
-import br.com.fatec.aquitemumrevendedor.model.BuscaDados;
-import br.com.fatec.aquitemumrevendedor.model.Revendedor;
+    //Variavel Global
 
-public class MainActivity extends AppCompatActivity {
-
-    private Connection con = new Connection();
-    private static final String TAG = "Thiago";
-
-    private List<Revendedor> revendedor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Thread timerThread = new Thread(){
+
+            public void run(){
+                try {
+                    sleep(3000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }finally {
+                    Intent intent = new Intent(ActSplash.this, ActPrincipal.class);
+                    startActivity(intent);
+                }
+            }
+        };
+        timerThread.start();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 
 //        BuscaDados bd = new BuscaDados();
 //
@@ -40,5 +54,5 @@ public class MainActivity extends AppCompatActivity {
 //        } catch (ExecutionException e) {
 //            e.printStackTrace();
 //        }
-    }
+
 }

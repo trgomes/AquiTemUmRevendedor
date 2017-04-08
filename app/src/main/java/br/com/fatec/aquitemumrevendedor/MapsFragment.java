@@ -22,6 +22,7 @@ import br.com.fatec.aquitemumrevendedor.model.Revendedor;
 import static android.content.ContentValues.TAG;
 import static br.com.fatec.aquitemumrevendedor.ActPrincipal.bd;
 
+
 public class MapsFragment extends SupportMapFragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;

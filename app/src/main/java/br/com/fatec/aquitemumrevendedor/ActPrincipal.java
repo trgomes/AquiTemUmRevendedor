@@ -28,13 +28,14 @@ public class ActPrincipal extends AppCompatActivity
 
     private FragmentManager fragmentManager;
 
-    private Connection con = new Connection();
+    public static final BuscaDados bd = new BuscaDados();
     private static final String TAG = "Thiago";
 
-    //Variavel Global
-    public static final BuscaDados bd = new BuscaDados();
 
-    private List<Revendedor> revendedor;
+    //Variavel Global
+//    public static final BuscaDados bd = new BuscaDados();
+
+//    private List<Revendedor> revendedor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +57,7 @@ public class ActPrincipal extends AppCompatActivity
 //        BuscaDados bd = new BuscaDados();
 //        List<Revendedor> resp = null;
 
-        try {
-            bd.execute().get();
-            Log.i(TAG, String.valueOf(bd.getDados()));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+
         // Fim
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -80,6 +74,20 @@ public class ActPrincipal extends AppCompatActivity
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.container, new MapsFragment(), "MapsFragment");
         transaction.commitAllowingStateLoss();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            bd.execute().get();
+            Log.i(TAG, String.valueOf(bd.getDados()));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

@@ -6,22 +6,23 @@ package br.com.fatec.aquitemumrevendedor.model;
 
 public class Marker {
 
-    private double latitude;
-    private double longitude;
+    private Double lat;
+    private Double lon;
+    private String description;
 
-    public double getLatitude() {
-        return latitude;
+    public Marker(Double l, Double lo, String desc){
+        lat = l;
+        lon = lo;
+        description = desc;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public Double getLat(){
+        return lat;
     }
 
-    public double getLongitude() {
-        return longitude;
+    public Double getLon(){
+        return lon;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
+    public String getDesc() { return description; }
 }

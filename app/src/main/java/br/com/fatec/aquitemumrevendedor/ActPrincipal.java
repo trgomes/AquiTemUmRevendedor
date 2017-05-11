@@ -1,12 +1,12 @@
 package br.com.fatec.aquitemumrevendedor;
 
+import android.location.Location;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,26 +16,28 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.List;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+
 import java.util.concurrent.ExecutionException;
 
 import br.com.fatec.aquitemumrevendedor.model.BuscaDados;
-import br.com.fatec.aquitemumrevendedor.model.Connection;
-import br.com.fatec.aquitemumrevendedor.model.Revendedor;
+
 
 public class ActPrincipal extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private FragmentManager fragmentManager;
 
-    public static final BuscaDados bd = new BuscaDados();
-    private static final String TAG = "Thiago";
-
+    GoogleApiClient googleApiClient;
 
     //Variavel Global
-//    public static final BuscaDados bd = new BuscaDados();
+    public static final BuscaDados bd = new BuscaDados();
 
-//    private List<Revendedor> revendedor;
+    private static final String TAG = "Thiago";
+
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,21 +46,6 @@ public class ActPrincipal extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-        //Carrega os dados - Inicio
-//        BuscaDados bd = new BuscaDados();
-//        List<Revendedor> resp = null;
-
-
-        // Fim
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -69,16 +56,6 @@ public class ActPrincipal extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Fragmento Map
-        fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.container, new MapsFragment(), "MapsFragment");
-        transaction.commitAllowingStateLoss();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         try {
             bd.execute().get();
             Log.i(TAG, String.valueOf(bd.getDados()));
@@ -87,6 +64,24 @@ public class ActPrincipal extends AppCompatActivity
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
+        callConnection();
+
+    }
+
+    private synchronized void callConnection(){
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addOnConnectionFailedListener(this)
+                .addConnectionCallbacks(this)
+                .addApi(LocationServices.API)
+                .build();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
 
     }
 
@@ -140,5 +135,31 @@ public class ActPrincipal extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        Location l = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        if(l != null){
+            Log.i("My Location","Latitude: "+l.getLatitude());
+            Log.i("My Location","Longitude: "+l.getLongitude());
+        }
+
+        //Fragmento Map
+        fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.container, new MapsFragment(l.getLatitude(), l.getLongitude()), "MapsFragment");
+        transaction.commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
     }
 }

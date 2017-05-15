@@ -1,5 +1,7 @@
 # AquiTemUmRevendedor
 
+Objetivo: Localizar revendedores da NATURA, AVON, etc.
+
 Diagrama de classes: 
 
 Telas da aplicação:

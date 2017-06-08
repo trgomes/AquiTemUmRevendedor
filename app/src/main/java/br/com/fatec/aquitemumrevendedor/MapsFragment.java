@@ -6,6 +6,7 @@ import android.location.Criteria;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
@@ -54,10 +55,15 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
 
     GoogleApiClient googleApiClient;
 
+    public MapsFragment(String mapsFragment){
+
+    }
+
     public MapsFragment(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,48 +74,6 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
-
-
-//        try {
-//
-//
-//            LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-//            Criteria criteria = new Criteria();
-//            String provider = locationManager.getBestProvider(criteria, true);
-//
-//            LocationListener gps = new GPS(googleMap);
-//            lm.requestLocationUpdates(provider, 0, 0, (android.location.LocationListener) gps);
-//        }
-//        catch (SecurityException ex){
-//            Log.i(TAG, "Error", ex);
-//        }
-
-//        try {
-//            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-//
-//            Criteria criteria = new Criteria();
-//            String provider = locationManager.getBestProvider(criteria, true);
-//
-//            mMap = googleMap;
-//            //Define o zoom minimo
-//            mMap.setMinZoomPreference(15);
-//            //Habilita controle de zoom
-//            mMap.getUiSettings().setZoomControlsEnabled(true);
-//
-//            mMap.setMyLocationEnabled(true);
-//
-//
-//
-//            Log.i("RETORNO posicao*=> ", l.getLatitude() + " " + l.getLongitude());
-//
-////            mMap.moveCamera(CameraUpdateFactory.newLatLng());
-//
-//            Log.i(TAG, "Localização :"+ mMap.getMyLocation());
-//        }
-//        catch (SecurityException ex){
-//            Log.i(TAG, "Error", ex);
-//        }
 
         mMap = googleMap;
         //Define o zoom minimo
@@ -136,14 +100,10 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
 //            mMap.moveCamera(CameraUpdateFactory.newLatLng(local));
         }
 
+        // Posição da posição atual do usuário
         LatLng local = new LatLng(this.latitude, this.longitude);
-//        MarkerOptions marker = new MarkerOptions();
-//        marker.position(local);
-//        marker.title("Minha localização");
-//        mMap.addMarker(marker);
-//        //Define a cor do marker
-//            mMap.addMarker(marker).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(local));
+        //Define o foco da camera no local atual ao abrir o programa
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(local));
 
     }
 

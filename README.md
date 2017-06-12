@@ -1,7 +1,7 @@
 # AquiTemUmRevendedor
 
 ### Objetivo:
-Localizar revendedores da NATURA, AVON, etc.
+Localizar revendedores autônomos da NATURA, AVON, etc.
 
 ### Diagrama de classes:
 

@@ -7,8 +7,7 @@ Localizar revendedores autônomos da NATURA, AVON, etc.
 
 ### Telas da aplicação:
 
-#### Tela 1: 
-Uma tela splash para apresentção do aplicativo
+**Tela 1:** Uma tela splash para apresentção do aplicativo
 ![alt tag](http://trgomes.esy.es/Imagens/app/1.png)
 
 #### Tela 2:

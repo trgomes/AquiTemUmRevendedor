@@ -5,6 +5,8 @@ Localizar revendedores autônomos da NATURA, AVON, etc.
 
 ### Diagrama de classes:
 
+![alt tag](http://trgomes.esy.es/Imagens/app/DC-AquiTemUmRevendedor.png)
+
 ### Telas da aplicação:
 
 **Tela 1:** Uma tela splash para apresentção do aplicativo

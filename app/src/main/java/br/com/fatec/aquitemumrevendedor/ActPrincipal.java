@@ -39,23 +39,19 @@ public class ActPrincipal extends AppCompatActivity
 
     private FragmentManager fragmentManager;
 
-    GoogleApiClient googleApiClient;
-
     //Variavel Global
     public static final BuscaDados bd = new BuscaDados();
 
     private static final String TAG = "Thiago";
 
-    private GoogleApiClient mGoogleApiClient;
+//    private GoogleApiClient mGoogleApiClient;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
 
-
-//    private double latitude;
-//    private double longitude;
+    //    GoogleApiClient googleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,12 +87,12 @@ public class ActPrincipal extends AppCompatActivity
     }
 
     private synchronized void callConnection() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
+        client = new GoogleApiClient.Builder(this)
                 .addOnConnectionFailedListener(this)
                 .addConnectionCallbacks(this)
                 .addApi(LocationServices.API)
                 .build();
-        mGoogleApiClient.connect();
+        client.connect();
     }
 
     @Override
@@ -178,7 +174,7 @@ public class ActPrincipal extends AppCompatActivity
         Log.i("ATIVO", String.valueOf(gpsAtivo));
 
         if(gpsAtivo != 0){
-            Location l = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            Location l = LocationServices.FusedLocationApi.getLastLocation(client);
             double latitude = l.getLatitude();
             double longitude = l.getLongitude();
 
@@ -200,7 +196,7 @@ public class ActPrincipal extends AppCompatActivity
 
         if (requestCode == 1) {
 //            Log.i("ATIVO", String.valueOf("Aqui"+requestCode));
-            Location l = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            Location l = LocationServices.FusedLocationApi.getLastLocation(client);
 //            carregaMapa(l);
         }
 

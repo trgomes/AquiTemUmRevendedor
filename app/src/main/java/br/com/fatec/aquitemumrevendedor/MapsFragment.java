@@ -1,31 +1,11 @@
 package br.com.fatec.aquitemumrevendedor;
 
-import android.content.Context;
-
-import android.location.Criteria;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationListener;
-
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -43,27 +23,15 @@ import static br.com.fatec.aquitemumrevendedor.ActPrincipal.bd;
 public class MapsFragment extends SupportMapFragment implements OnMapReadyCallback{
 
     private GoogleMap mMap;
-    private LocationManager locationManager;
 
-    private static final String TAG = "MapsFragment";
-
-
-//    private static final String TAG = "LocationActivity";
 
     private double latitude;
     private double longitude;
-
-    GoogleApiClient googleApiClient;
-
-    public MapsFragment(String mapsFragment){
-
-    }
 
     public MapsFragment(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
